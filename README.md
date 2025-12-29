@@ -1,48 +1,66 @@
-# Salary Prediction
-#### Project Status : Completed
+# 💰 Salary Prediction: Machine Learning Analysis
+
+![Python](https://img.shields.io/badge/Python-3.12-blue)
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-Regression-orange)
+![Status](https://img.shields.io/badge/Status-Completed-success)
+
+## Project Overview
+The purpose of this project is to assist the HR team and the company in determining a reasonable, data-driven salary standard. By utilizing **Machine Learning**, this system predicts an employee's salary estimation based on their *Years of Experience* and other demographic factors.
+
+**Dataset:** Sourced from Kaggle, consisting of **6,705 rows** and **6 features** (Age, Gender, Education Level, Job Title, Years of Experience, Salary).
+
+## Methodology & Experiments
+
+We adopted a **Staged Modelling Approach**, starting from a simple baseline to complex ensemble methods to find the most accurate predictor.
+
+### 1. The Baseline: Linear Regression
+We started with **Linear Regression** to establish a benchmark.
+* **Goal:** To observe simple linear trends between Experience and Salary.
+* **Result:** It captured the general trend well but struggled with non-linear variations in the data.
+
+### 2. The Challengers: Tree-Based Ensembles
+To capture complex patterns that a straight line cannot see, we deployed two powerful ensemble models:
+* **Random Forest Regressor:** Uses "Bagging" technique (multiple decision trees voting together) to ensure stability and reduce variance.
+* **Gradient Boosting:** Uses "Boosting" technique (correcting previous errors iteratively) to maximize accuracy.
+
+## Model Performance
+
+The table below summarizes the evaluation results. We used **R-Squared ($R^2$)** to measure accuracy and **MAE (Mean Absolute Error)** to measure the average prediction deviation in currency units.
+
+| Experiment Name | Model Architecture | R-Squared | MAE | Status |
+| :--- | :--- | :--- | :--- | :--- |
+| **Baseline** | Linear Regression | `0.84` | 15,048.94 | Good Baseline |
+| **Challenger 1** | **Random Forest Regressor** | **`0.98`** | **3,030.29** | **Winner** |
+| **Challenger 2** | Gradient Boosting | `0.91` | 12,044.99 | High Variance |
+
+> *Note: Higher R-Squared and Lower MAE indicate better performance.*
+
+## The Champion Model: Random Forest
+
+After rigorous benchmarking, **Random Forest Regressor** has been selected as the final model for deployment.
+
+* **Why it won:** It achieved near-perfect accuracy ($R^2 \approx 0.98$) with the lowest error. The "Bagging" mechanism proved to be extremely robust for this specific dataset size, effectively handling outliers better than the aggressive Gradient Boosting.
+* **Strategic Value:** It provides the HR team with a highly precise benchmark for salary negotiations, with an average error margin of only ~$3,030.
+
+## Key Insights
+1.  **Experience is King:** Exploratory Data Analysis (EDA) confirmed a **very strong positive correlation** between *Years of Experience* and *Salary*.
+2.  **Complexity $\neq$ Superiority:** A crucial finding from this experiment is that the theoretically more advanced **Gradient Boosting** did *not* outperform Random Forest.
+    * *Fit to Purpose:* For this specific dataset structure, the stability of Random Forest was superior to the hyper-sensitive error correction of Boosting.
+    * *Lesson:* Always benchmark; never assume the most complex model is the best.
+3.  **Non-Linearity Matters:** At certain seniority levels, salary increases are not linear. Tree-based models captured these "plateaus" and "jumps" much better than Linear Regression.
+
+## How to Run
+1.  Clone the repository.
+2.  Install dependencies:
+    ```bash
+    pip install pandas numpy scikit-learn matplotlib seaborn
+    ```
+3.  Run the Jupyter Notebook `Salary_Prediction.ipynb`.
+
+## Future Improvements
+* **Feature Engineering:** Create new features like *Age-to-Experience Ratio* to detect rapid career climbers.
+* **Hyperparameter Tuning:** Use GridSearch CV to further optimize the Gradient Boosting parameters to see if it can match Random Forest.
+* **Web Deployment:** Deploy the Random Forest model using Streamlit or Flask for easy access by HR users.
+
 ---
-### Project Overview
-The purpose of this project is to assist the HR team and the company in determining a reasonable salary standard. By utilizing **Machine Learning (Linear Regression)**, this system can predict an employee's salary estimation based on their *Years of Experience*.
-### Dataset 
-The dataset used is from Kaggle. Consisting of **6,705 rows** and **6 features** including:
-- Age
-- Gender
-- Education Level
-- Job Title
-- Years of Experience
-- Salary
-### Tech Stack
-* Language: Python 3.12
-* Data Manipulation : Pandas, NumPy
-* Modelling : Scikit-learn (Linear Regression, Random Forest, Gradient Boosting)
-* Visualization : Matplotlib, Seaborn
-### Key Insight
-From the results of Exploratory Data Analysis (EDA), it was found that: 
-1. There is a **very strong positive correlation** between work experience and salary.
-   ![alt text](https://github.com/wyenaa/SalaryPrediction/blob/main/Notebook/Correlation_Matrix.png?raw=true)
-2. At a certain level of experience, salary increases are not always perfectly linear, but rather have variations that are better captured by tree-based models.
-### Model Performance
-We developed and compared three Machine Learning algorithm approaches to predict salary estimates based on years of experience:
-1. Linear Regression: As a baseline model for observing simple linear trends.
-2. Random Forest Regressor: As a challenger model based on decision trees to capture more complex non-linear patterns.
-3. Gradient Boosting: As an advanced model that uses boosting techniques to iteratively improve prediction errors in order to achieve maximum accuracy.
-### Model Performance
-| Model | R-Squared | MAE | Description |
-|-------|-----------|-----|-------------|
-|Linear Regression | 0.84 | 15048.94 | Model Baseline | 
-|Random Forest Regressor | 0.98 | 3030.29 | Ensemble Model based on bagging for stability |
-|Gradient Boosing | 0.91 | 12044.99 | Advanced model based on boosting for iterative error optimization |
-### Final Conclusion 
-**1. The Champion: Random Forest**
-   
-   After rigorous testing and benchmarking, **Random Forest Regressor** has been selected as the final model for deployment. It achieved the highest accuracy (R-Squared ~0.98) and the lowest prediction error, outperforming both the baseline Linear Regression and the advanced Gradient Boosting model.
-   
-**2. Critical Insight**
-
-   A key finding from this experiment involves the Gradient Boosting model. Despite being theoretically more "advanced" and complex, it did not surpass Random Forest in this specific scenario.This validates a crucial data science principle: Complexity $\neq$ Superiority.
-   * Fit to Purpose: For this specific dataser size and structure, the stability offered by Random Forest's bagging technique proved superior to the aggressive error-correction of *boosting*.
-   * Robustness : Random Forest demonstrated better generalization with default parameters, making it more realiable choice for production compared to the hyper-sensitive Gradient Boosting.
-     
-**3. Strategic Decision**
-
-   I strongly recommend deploying the Random Forest model. It offers the perfect balance of high precision and reliability, providing the HR team with a trustworthy benchmark for salary negotiations.
+**Created by Wyena Suilianty**
